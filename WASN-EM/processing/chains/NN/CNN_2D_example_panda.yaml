@@ -1,0 +1,120 @@
+constants:
+  CLASS_COUNT: 4
+  CHANNELS:  NaN
+  FEATURE_VECTOR_LENGTH: NaN
+  INPUT_SEQUENCE_LENGTH: NaN
+  CONVOLUTION_BORDER_MODE: same
+  ACTIVATION: relu
+  DROPOUT: 0.1
+  S: NaN # word size
+
+chain:
+  # Conv layer
+  - layer_name: Conv2D
+    config:
+      input_shape: [CHANNELS, FEATURE_VECTOR_LENGTH, INPUT_SEQUENCE_LENGTH] # [channel, data, time]
+      filters: 8
+      kernel_size: [5, 5]
+      strides: [1,1]
+      padding: CONVOLUTION_BORDER_MODE
+      use_bias: 1
+    memory: {parameters: 1, output: 1, output_save: True}
+  # Detection layer
+  - layer_name: Activation
+    config:
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Pooling layer
+  - layer_name: MaxPooling2D
+    config:
+      pool_size: [2, 2]
+      strides: [2, 2]
+      padding: CONVOLUTION_BORDER_MODE
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Conv. layer 
+  - layer_name: Conv2D
+    config:
+      filters: 16
+      kernel_size: [5,5]
+      strides: [1,1]
+      padding: CONVOLUTION_BORDER_MODE
+      use_bias: 1
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Detection layer
+  - layer_name: Activation
+    config:
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Pooling layer
+  - layer_name: MaxPooling2D
+    config:
+      pool_size: [2, 2]
+      strides: [2, 2]
+      padding: CONVOLUTION_BORDER_MODE
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S  
+  # Conv. layer 
+  - layer_name: Conv2D
+    config:
+      filters: 32
+      kernel_size: [5,5]
+      strides: [1,1]
+      padding: CONVOLUTION_BORDER_MODE
+      use_bias: 1
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Detection layer
+  - layer_name: Activation
+    config:
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Pooling layer
+  - layer_name: MaxPooling2D
+    config:
+      pool_size: [2, 2]
+      strides: [2, 2]
+      padding: CONVOLUTION_BORDER_MODE
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S 
+  # Fully connected layer
+  - layer_name: Flatten
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Fully connected layer
+  - layer_name: Dense
+    config:
+      units: 16
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Drop out layer
+  - layer_name: Dropout
+    config:
+      rate: DROPOUT
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Fully connected layer
+  - layer_name: Dense
+    config:
+      units: 8
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Drop out layer
+  - layer_name: Dropout
+    config:
+      rate: DROPOUT
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Output layer
+  - layer_name: Dense
+    config:
+      units: CLASS_COUNT
+      activation: softmax
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S

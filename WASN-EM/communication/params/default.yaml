@@ -1,0 +1,49 @@
+param:
+    ## Electronic components parameters (communication module)
+    Est: 94*10^-3                          # startup energy consumption [mJ] (considering full Zigbee frame, in contrast to 802.15.4)
+    Pfilter: 1                             # filter consumption [mW]
+    Pmixer: 1                              # mixer consumption [mW]
+    Plna_rx: 3                             # low-noise amplifier consumption [mW]
+    Pvga: 5                                # voltage gain [mW]
+    Plo: 22.5                              # consumption of local oscilator that generates the carrier frequency [mW]
+    ## DAC and ADC
+    n1: 10                                 # resolution of the tx DAC [levels]
+    fs_DAC: 4*10^6                         # sampling frequency of DAC [Hz]
+    Vdd_dac: 3                             # voltage supply [V]
+    I0_dac: 10*10^-3                       # average current consumption [mA]
+    Cp_dac: 1*10^-12                       # parasitic capacitance [F]
+    n2: 10                                 # resolution fo the rx ADC [levels]
+    fs_ADC: 4*10^6                         # sampling frequency of ADC [Hz]
+    ## Irradiation parameters
+    eta_max: 0.785                         # Max PA efficiency
+    beta: .5                               # PA parameter
+    Spa: 1                                 # Additional backoff factor
+    Gt: 1.8                                # Tx antenna gain
+    Gr: 1.8                                # Rx antenna gain
+    PA: 1                                  # Class B PA - 1, Class A PA - 0
+    ch_correlation: 'ff'                   # kind of fading  ff or static
+    channel: 1                             # kind of channel  0 - AWGN
+    K: 1                                   # Nakagami-m or Rice parameter
+    d: 5                                   # Link distance [m]
+    ## Comms. parameters
+    fc: 2.4*10^9                           # Carrier frequency [Hz]
+    W: 1*10^6                              # Bandwidth [Hz]
+    Rs: 0.125*10^6                         # Symbol rate [Baud/s]
+    e: 25                                  # Eb/N0 [dB]
+    M: 4                                   # M-ary number
+    ## BCH ECC parameters
+    ttx: 2                                 # number of bits ECC can correct (TX)
+    trx: 0                                 # number of bits ECC can correct (RX)
+    # Frame properties
+    byte: 8                                # Bits per byte
+    H: 2*byte                              # Header bytes
+    Ltx: 127*byte                          # Payload bytes Tx      
+    Lrx: 1*byte                            # Payload bytes Rx  
+    Ladj: True                             # Adjust Ltx and Lrx to data size if lower than initial Ltx/Lrx
+    Oa: 4*byte                             # Acquisition overhead
+    Ob: 1*byte                             # Estimation and synchronization overhead
+    F: 5*byte                              # Feedback frame bytes
+    # Noise parameters
+    Nf: 16                                 # Rx's noise figure [dB]
+    Ml: 20                                 # Link margin due to interference and second order factors [dB]
+    a: 2.2                                 # Path loss exponent

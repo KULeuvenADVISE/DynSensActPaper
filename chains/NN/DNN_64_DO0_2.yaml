@@ -1,0 +1,54 @@
+constants:
+  CLASS_COUNT: 10
+  ACTIVATION: relu
+  DROPOUT: 0.2
+  DENSE_UNITS: 64
+  S: NaN # word size
+
+chain:
+  # Fully connected layer
+  - layer_name: Dense
+    config:
+      units: DENSE_UNITS
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Drop out layer
+  - layer_name: Dropout
+    config:
+      rate: DROPOUT
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Fully connected layer
+  - layer_name: Dense
+    config:
+      units: DENSE_UNITS
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Drop out layer
+  - layer_name: Dropout
+    config:
+      rate: DROPOUT
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Fully connected layer
+  - layer_name: Dense
+    config:
+      units: DENSE_UNITS
+      activation: ACTIVATION
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
+  # Drop out layer
+  - layer_name: Dropout
+    config:
+      rate: DROPOUT
+    memory: {parameters: 1, output: 1, output_save: False}
+    wordsize: S
+  # Output layer
+  - layer_name: Dense
+    config:
+      units: CLASS_COUNT
+      activation: softmax
+    memory: {parameters: 1, output: 1, output_save: True}
+    wordsize: S
